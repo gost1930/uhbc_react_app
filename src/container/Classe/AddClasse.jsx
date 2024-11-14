@@ -16,34 +16,35 @@ const AddClasse = () => {
     onSubmit: async (values) => {
       try {
         await addClasse(values);
-        await showSuccessAlert("تم اضافة قسم بنجاح");
-        window.location.reload();
+        showSuccessAlert("تم اضافة قسم بنجاح");
+        formik.resetForm();
       } catch (error) {
         showErrorAlert("حدث خطأ ما!!");
-        console.log(error);
+        console.error("Error adding classe:", error);
       }
     },
   });
 
   return (
-    <div className="p-10 w-full">
-      <h1>إضافة قسم</h1>
-      <form onSubmit={formik.handleSubmit}>
+    <div className="p-5 md:p-10 w-full max-w-md mx-auto">
+      <h1 className="text-2xl font-bold text-center mb-6">إضافة قسم</h1>
+      <form onSubmit={formik.handleSubmit} className="space-y-4">
         <input
           type="text"
           name="name"
-          value={formik.values.name}
           id="name"
+          value={formik.values.name}
           onChange={formik.handleChange}
-          placeholder="اضافة صف"
-          className="border border-gray-300 p-2 rounded"
+          placeholder="اسم القسم"
+          className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
         />
         {formik.errors.name && formik.touched.name && (
-          <div className="text-red-500 mt-1">{formik.errors.name}</div>
+          <div className="text-red-500 text-sm">{formik.errors.name}</div>
         )}
+        
         <button
           type="submit"
-          className="py-2 px-10 bg-green-600 rounded-lg hover:bg-green-800 text-white flex items-center mt-5"
+          className="w-full py-2 bg-green-500 hover:bg-green-600 text-white font-bold rounded focus:outline-none focus:ring-2 focus:ring-green-500"
         >
           اضافة
         </button>

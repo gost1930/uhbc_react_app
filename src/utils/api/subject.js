@@ -12,15 +12,21 @@ export const getAllSubject = async () => {
 }
 
 export const getSubjectByClasse = async (id) => {
-    const response = await fetch(`${SUBJECT}${id}/`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
+    const response = await fetch(`${SUBJECT}${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
     });
+    
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    
     const data = await response.json();
     return data;
-}
+  };
 
 export const createSubject = async (data) => {
     const response = await fetch(SUBJECT, {
