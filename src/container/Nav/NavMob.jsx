@@ -4,12 +4,8 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { getAllClasse } from "../../utils/api/classe";
 
-export default function NavMob() {
-  const btn = [
-    { id: 1, name: "الرئيسية", link: "/" },
-    { id: 2, name: "الأقسام" },
-    { id: 3, name: "من نحن", link: "/about" },
-  ];
+export default function NavMob({btn}) {
+  
 
   const [value, setValue] = useState(false);
   const [classes, setClasses] = useState([]);

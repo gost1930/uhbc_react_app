@@ -1,11 +1,7 @@
 import { Link } from "react-router-dom";
 
-export default function NavPc() {
-    const btn = [
-        {id:1 ,name: "الرئيسية", link: "/"},
-        {id:4 , name:"المنتديات" , link:"/meetings"},
-        {id:5 ,name:"من نحن" , link:"/about"},
-    ]
+export default function NavPc({btn}) {
+    
     return(
         <ul className="hidden md:flex flex-row h-full">
             

@@ -21,6 +21,8 @@ const Table = ({
     if (!readOnly) {
       setselectedId(id);
       setshowEdit(true);
+      console.log("id : ", id);
+      
     }
   };
 
@@ -60,11 +62,11 @@ const Table = ({
                 {!readOnly ? (
                   <>
                     <CiEdit
-                      onClick={() => onEdit(index1)}
+                      onClick={() => onEdit(row.id)}
                       className="cursor-pointer text-2xl text-green-500 hover:text-green-600"
                     />
                     <AiOutlineDelete
-                      onClick={() => onDelete(index1)}
+                      onClick={() => onDelete(row.id)}
                       className="cursor-pointer text-2xl text-red-500 hover:text-red-600"
                     />
                   </>

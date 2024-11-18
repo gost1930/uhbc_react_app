@@ -1,6 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap");
-* {
-  font-family: "IBM Plex Sans Arabic", sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@100..900&display=swap');* {
+  font-family: 'Noto Kufi Arabic', sans-serif;
   scroll-behavior: smooth;
 }
 .bg-primary {
@@ -40,4 +39,24 @@
   background-color: #ffffff !important;
   background-image: url("./assets/bg.png");
   background-position: top center;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888888;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.scroll-hidden::-webkit-scrollbar {
+  display: none;
 }

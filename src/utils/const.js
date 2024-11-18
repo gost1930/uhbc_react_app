@@ -9,7 +9,7 @@ export const CLASSE = `${BASE_URL}/classe/`
 
 export const LESSON = `${BASE_URL}/lesson/`
 
-export const WEEKLY_TIME = `${BASE_URL}/weeklytime/`
+export const WEEKLY_TIME = `${BASE_URL}/weeklyTime/`
 
 export const FILE = `${BASE_URL}/file/`
 

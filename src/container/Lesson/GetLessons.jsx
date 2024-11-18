@@ -2,7 +2,9 @@ import { useState, useEffect, memo } from "react";
 import { getAllLesson } from "../../utils/api/lesson";
 import { getAllClasse } from "../../utils/api/classe";
 import { getAllSubject } from "../../utils/api/subject";
-import { Table } from "../../components";
+import { Modal, Table } from "../../components";
+import EditLesson from "./EditLesson";
+import DeleteLesson from "./DeleteLesson";
 
 const GetLessons = () => {
   const [allLessons, setAllLessons] = useState([]);
@@ -11,6 +13,8 @@ const GetLessons = () => {
   const [subjects, setSubjects] = useState([]);
   const [selectedClass, setSelectedClass] = useState("");
   const [selectedSubject, setSelectedSubject] = useState("");
+  const [ selectedRowId ,setSelectedRowId] = useState(null);
+  const [deleteTrue, setDeleteTrue] = useState(false);
 
   const columns = {
     name: "الدرس",
@@ -23,7 +27,8 @@ const GetLessons = () => {
       try {
         const lessonData = await getAllLesson();
         const formattedLessons = lessonData.map(
-          ({ name, subject: { name: subjectName, classesId }, pdfLesson }) => ({
+          ({id, name, subject: { name: subjectName, classesId }, pdfLesson }) => ({
+            id,
             name,
             subject: subjectName,
             classe: classesId,
@@ -43,7 +48,7 @@ const GetLessons = () => {
     };
 
     fetchData();
-  }, []);
+  }, [deleteTrue === true]);
 
   const filterLessons = (classId, subjectName) => {
     let filteredLessons = allLessons;
@@ -75,6 +80,20 @@ const GetLessons = () => {
     filterLessons(selectedClass, subjectName);
   };
 
+  const setSelectedId = (id) => {
+    setSelectedRowId(id);
+  };
+
+  const [showEdit , setShowEdit] = useState(false);
+  const [showDelete , setShowDelete] = useState(false);
+
+  const handleEdit = (id) => {
+    setShowEdit(true);
+  };
+
+  // const handleDelete = (id) => {
+  //   setShowDelete(true);
+  // };
   return (
     <div>
       <select onChange={handleClassChange} value={selectedClass}>
@@ -88,7 +107,9 @@ const GetLessons = () => {
 
       <select onChange={handleSubjectChange} value={selectedSubject}>
         <option value="">الكل</option>
-        {subjects
+        {selectedClass === "" ? "" 
+        :(
+          subjects
           .filter(
             (subject) =>
               !selectedClass || subject.classesId === parseInt(selectedClass)
@@ -97,12 +118,30 @@ const GetLessons = () => {
             <option key={subject.id} value={subject.name}>
               {subject.name}
             </option>
-          ))}
+          ))
+        )}
       </select>
 
-      <Table columns={columns} rows={rows} />
+      <Table 
+      columns={columns} 
+      rows={rows}
+      setselectedId={setSelectedId}
+      setshowDelete={setShowDelete}
+      setshowEdit={setShowEdit} />
+
+      <EditLesson 
+      showModal={showEdit} 
+      CloseModal={() => setShowEdit(false)} />
+      
+      <DeleteLesson
+      showModal={showDelete}
+      CloseModal={() => setShowDelete(false)}
+      lesseonId={selectedRowId}
+      setDeleteTrue={setDeleteTrue}
+      />      
     </div>
   );
 };
+
 
 export default memo(GetLessons);

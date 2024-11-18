@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getAllSubject } from "../../utils/api/subject";
-import Table from "../../components/Table";
+import Table from "../../components/generics/Table";
 import { getAllClasse } from "../../utils/api/classe";
 
 const GetSubject = () => {

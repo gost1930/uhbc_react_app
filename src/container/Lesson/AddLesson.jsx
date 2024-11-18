@@ -7,6 +7,7 @@ import { getAllSubject, getSubjectByClasse } from "../../utils/api/subject";
 import { getAllClasse } from "../../utils/api/classe";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { BtnLink } from "../../components";
 
 const AddLesson = () => {
   const [subject, setSubject] = useState([]);
@@ -14,7 +15,7 @@ const AddLesson = () => {
 
   const formik = useFormik({
     initialValues: {
-      subject_id: '',
+      subject_id: "",
       name: "",
       pdfLesson: null,
     },
@@ -50,7 +51,9 @@ const AddLesson = () => {
 
   return (
     <div className="p-5 md:p-10 w-full max-w-lg mx-auto">
-      <h1 className="text-xl md:text-2xl font-bold mb-5 text-center">إضافة درس</h1>
+      <h1 className="text-xl md:text-2xl font-bold mb-5 text-center">
+        إضافة درس
+      </h1>
       <form onSubmit={formik.handleSubmit} className="space-y-4">
         <input
           type="text"
@@ -63,13 +66,13 @@ const AddLesson = () => {
         {formik.errors.name && formik.touched.name && (
           <div className="text-red-500 text-sm">{formik.errors.name}</div>
         )}
-        
+
         <div className="flex items-center gap-x-2">
           <select
             name="classe_id"
             onChange={(e) => {
               getSubByClasse(e.target.value);
-              formik.setFieldValue('classe_id', e.target.value);
+              formik.setFieldValue("classe_id", e.target.value);
             }}
             className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
           >
@@ -80,42 +83,40 @@ const AddLesson = () => {
               </option>
             ))}
           </select>
-          <Link to={`/classe`} className="text-green-600 text-lg">
-            <IoAddCircleOutline />
-          </Link>
+          <BtnLink path="/classe" titel={<IoAddCircleOutline />} />
         </div>
 
         <div className="flex items-center gap-x-2">
           <select
             name="subject_id"
             value={formik.values.subject_id}
-            onChange={(e) => formik.setFieldValue('subject_id', e.target.value)}
+            onChange={(e) => formik.setFieldValue("subject_id", e.target.value)}
             className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
           >
             <option value="">اختر المادة</option>
-            {subject.length > 0
-              ? subject.map((subject) => (
-                  <option key={subject.id} value={subject.id}>
-                    {subject.name}
-                  </option>
-                ))
-              : <option>إختر القسم أولا</option>}
+            {subject.length > 0 ? (
+              subject.map((subject) => (
+                <option key={subject.id} value={subject.id}>
+                  {subject.name}
+                </option>
+              ))
+            ) : (
+              <option>إختر القسم أولا</option>
+            )}
           </select>
-          <Link to={`/subject`} className="text-green-600 text-lg">
-            <IoAddCircleOutline />
-          </Link>
+          <BtnLink path="/subject" titel={<IoAddCircleOutline />} />
         </div>
 
         <input
           type="file"
           name="pdfLesson"
-          onChange={(e) => formik.setFieldValue('pdfLesson', e.target.files[0])}
+          onChange={(e) => formik.setFieldValue("pdfLesson", e.target.files[0])}
           className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
         />
         {formik.errors.pdfLesson && formik.touched.pdfLesson && (
           <div className="text-red-500 text-sm">{formik.errors.pdfLesson}</div>
         )}
-        
+
         <button
           type="submit"
           className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
